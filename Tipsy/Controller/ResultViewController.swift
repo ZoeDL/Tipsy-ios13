@@ -17,8 +17,8 @@ class ResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tipPCT = "\(Int((tipAmount ?? 0) * 100))%"
-        splitInformationLabel.text = "Split between \(splitNumber ?? 0) people, with \(tipPCT) tip."
+        let tipPCT = "\(Int((tipAmount ?? 0) * 100))"
+        splitInformationLabel.text = "Split between \(splitNumber ?? 0) people, with \(tipPCT)% tip."
         splitAmountLabel.text = String(format: "%.2f", splitAmount ?? 0)
     }
     

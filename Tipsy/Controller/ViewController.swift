@@ -29,14 +29,7 @@ class ViewController: UIViewController {
         zeroPCTButton.isSelected = false
         tenPCTButton.isSelected = false
         twentyPCTButton.isSelected = false
-        
-        if sender.currentTitle == "0%" {
-            zeroPCTButton.isSelected = true
-        } else if sender.currentTitle == "10%" {
-            tenPCTButton.isSelected = true
-        } else {
-            twentyPCTButton.isSelected = true
-        }
+        sender.isSelected = true
     }
     
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
