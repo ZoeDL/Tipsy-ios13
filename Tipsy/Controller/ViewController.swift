@@ -16,9 +16,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var stepper: UIStepper!
     @IBOutlet weak var billTextField: UITextField!
     @IBOutlet weak var splitLabel: UILabel!
-    var tip = 0.1
-    var splitAmount: Double = 0
-    var splitNumber: Int = 2
+    var splitBrain = SplitBrain()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //Looks for single or multiple taps.
@@ -33,13 +32,10 @@ class ViewController: UIViewController {
         
         if sender.currentTitle == "0%" {
             zeroPCTButton.isSelected = true
-            tip = 0
         } else if sender.currentTitle == "10%" {
             tenPCTButton.isSelected = true
-            tip = 0.1
         } else {
             twentyPCTButton.isSelected = true
-            tip = 0.2
         }
     }
     
@@ -52,12 +48,16 @@ class ViewController: UIViewController {
         let billAmount = billTextField.text
         if let billAmountUnwrapped = billAmount {
             if let billAmountDouble = Double(billAmountUnwrapped) {
-                splitNumber = Int(stepper.value)
-                let billAmountWithTips = billAmountDouble * (1 + tip)
-                splitAmount = billAmountWithTips / Double(splitNumber)
-                
-                print("average : \(splitAmount)")
-                
+                let splitNumber = Int(stepper.value)
+                var tip: Double = 0
+                if(zeroPCTButton.isSelected) {
+                    tip = 0
+                } else if(tenPCTButton.isSelected) {
+                    tip = 0.1
+                } else {
+                    tip = 0.2
+                }
+                splitBrain.calculateSplitAmount(tip: tip, splitNumber: splitNumber, billAmount: billAmountDouble)
                 self.performSegue(withIdentifier: "goToResultPage", sender: self)
             } else {
                 print("invalid bill total")
@@ -73,10 +73,9 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToResultPage" {
             let distinationVC = segue.destination as! ResultViewController
-            distinationVC.splitAmount = splitAmount
-            distinationVC.splitNumber = splitNumber
-            distinationVC.tipAmount = tip
-          
+            distinationVC.splitAmount = splitBrain.getSplitAmount()
+            distinationVC.splitNumber = splitBrain.getSplitNumber()
+            distinationVC.tipAmount = splitBrain.getTip()
         }
     }
     

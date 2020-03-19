@@ -290,6 +290,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Jmu-aI-Opa"/>
                     </view>
+                    <connections>
+                        <outlet property="splitAmountLabel" destination="uLJ-ii-hft" id="kel-tQ-Gd4"/>
+                        <outlet property="splitInformationLabel" destination="HGt-bn-sCv" id="5ph-kG-QkQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uLi-Eb-NGd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
